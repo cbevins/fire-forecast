@@ -6,6 +6,7 @@
 	<ul>
 		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
 		<li><a aria-current="{segment === 'fiddle' ? 'page' : undefined}" href="fiddle">fiddle</a></li>
+		<li><a aria-current="{segment === 'periodic' ? 'page' : undefined}" href="periodic">periodic</a></li>
 	</ul>
 </nav>
 
