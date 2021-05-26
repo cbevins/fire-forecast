@@ -1,6 +1,18 @@
 <script>
-	import successkid from 'images/successkid.jpg';
 </script>
+
+<svelte:head>
+	<title>Fire Forecast</title>
+</svelte:head>
+
+<h1>Fire Forecast</h1>
+<p>View a 3-day fire weather, fuel moisture, and fire behavior forecast
+  for anywhere in the world!
+</p>
+<figure>
+	<img alt="SEM" src="./Wildfire.jpg">
+	<figcaption>Systems for Environmental Management</figcaption>
+</figure>
 
 <style>
 	h1, figure, p {
@@ -35,16 +47,3 @@
 		}
 	}
 </style>
-
-<svelte:head>
-	<title>Sapper project template</title>
-</svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-	<img alt="Success Kid" src="{successkid}">
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
