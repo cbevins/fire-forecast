@@ -1,5 +1,24 @@
 <script>
   import {FuelModelProps} from '../models/fuelModelProps.js'
+  import {FuelCatalog} from '../models/fire-behavior-simulator.js'
+
+  let fuelKey = 'gr1'
+  let fuelData, fuelModel
+  $: fuelData = FuelModelProps.find(element => element.fuel === fuelKey)
+  $: fuelModel = FuelCatalog.model(fuelKey)
+
+  function handleClick(event) {
+    fuelKey = event.target.getAttributeNS(null, "fuel")
+    console.log(`Clicked '${fuelKey}'`)
+  }
+  function handleEnter(event){
+    const fuel = event.target.getAttributeNS(null, "fuel")
+    console.log(`Entered '${fuel}'`)
+  }
+  function handleLeave(event){
+    const fuel = event.target.getAttributeNS(null, "fuel")
+    console.log(`Left '${fuel}'`)
+  }
 
   let pt = {x0: 0, y0: 260, bw: 100, bh: 100, p: 5}
   let leg = {x0: 300, y0: 20, w: 200, h: 200, p:5}
@@ -46,6 +65,49 @@
 
 <svelte:head><title>Fuel Periodic Table</title></svelte:head>
 
+<!-- Modal ---------------------------------------------------------------------->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {(fuelData.fuel).toUpperCase()} (#{fuelModel.number}) - {fuelModel.label}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-bordered border-primary">
+            <thead class='table-light border-primary'>
+              <tr><th scope='row'>Parameter</th><th>Value</th><th>Units</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Fuel Bed Depth</td><td>{fuelModel.depth}</td><td>ft</td></tr>
+              <tr><td>Dead Extinction Moisture</td><td>{Math.round(100*fuelModel.deadMext)}</td><td>%</td></tr>
+              <tr><td>Dead 1-h Load</td><td>{Math.round(21.78 * fuelModel.dead1Load)}</td><td>ton/ac</td></tr>
+              <tr><td>Dead 10-h Load</td><td>{Math.round(21.78 * fuelModel.dead10Load)}</td><td>ton/ac</td></tr>
+              <tr><td>Dead 100-h Load</td><td>{Math.round(21.78 * fuelModel.dead100Load)}</td><td>ton/ac</td></tr>
+              <tr><td>Total Herb Load</td><td>{Math.round(21.78 * fuelModel.totalHerbLoad)}</td><td>ton/ac</td></tr>
+              <tr><td>Live Stem Load</td><td>{Math.round(21.78 * fuelModel.liveStemLoad)}</td><td>ton/ac</td></tr>
+              <tr><td>Dead 1-h SAVR</td><td>{Math.round(fuelModel.dead1Savr)}</td><td>ft2/ft3</td></tr>
+              <tr><td>Live Herb SAVR</td><td>{Math.round(fuelModel.liveHerbSavr)}</td><td>ft2/ft3</td></tr>
+              <tr><td>Live Stem SAVR</td><td>{Math.round(fuelModel.liveStemSavr)}</td><td>ft2/ft3</td></tr>
+              <tr><td>Dead Heat Combustion</td><td>{Math.round(fuelModel.deadHeat)}</td><td>Btu/lb</td></tr>
+              <tr><td>Live Heat Combustion</td><td>{Math.round(fuelModel.liveHeat)}</td><td>Btu/lb</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+      <!-- --------------------------------------------------------------------------->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Select</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <svg class="defs-only" xmlns="http://www.w3.org/2000/svg"
     width="0" height="0" style="display: block;">
   <style>
@@ -67,16 +129,19 @@
 <svg viewbox="-40 -40 940 900" xmlns="http://www.w3.org/2000/svg">
   <text class='legend' x='0' y='10'>Period Table of Fuel Models</text>
   {#each FuelModelProps as f}
-    <rect width='100' height='100' style={boxv(f)} x={boxx(f)} y={boxy(f)}/>
-    <text text-anchor='start' x={deadx(f)} y={deady(f)}>{deadv(f)}</text>
-    <text text-anchor='end' x={livex(f)} y={livey(f)}>{livev(f)}</text>
-    <text text-anchor='middle' x={depthx(f)} y={depthy(f)}>{depthv(f)}</text>
-    <text text-anchor="middle" x={fuelx(f)} y={fuely(f)} class="heavy">{fuelv(f)}</text>
-    <text text-anchor='middle' x={hpuax(f)} y={hpuay(f)}>{hpuav(f)}</text>
-    <text text-anchor='start' x={rosx(f)} y={rosy(f)}>{rosv(f)}</text>
-    <text text-anchor='end' x={flmx(f)} y={flmy(f)}>{flmv(f)}</text>
+    <g fuel={f.fuel} on:mouseenter={handleEnter} on:mouseleave={handleLeave}
+      on:click={handleClick}
+      data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <rect fuel={f.fuel} width='100' height='100' style={boxv(f)} x={boxx(f)} y={boxy(f)}/>
+      <text fuel={f.fuel} text-anchor='start' x={deadx(f)} y={deady(f)}>{deadv(f)}</text>
+      <text fuel={f.fuel} text-anchor='end' x={livex(f)} y={livey(f)}>{livev(f)}</text>
+      <text fuel={f.fuel} text-anchor='middle' x={depthx(f)} y={depthy(f)}>{depthv(f)}</text>
+      <text fuel={f.fuel} text-anchor="middle" x={fuelx(f)} y={fuely(f)} class="heavy">{fuelv(f)}</text>
+      <text fuel={f.fuel} text-anchor='middle' x={hpuax(f)} y={hpuay(f)}>{hpuav(f)}</text>
+      <text fuel={f.fuel} text-anchor='start' x={rosx(f)} y={rosy(f)}>{rosv(f)}</text>
+      <text fuel={f.fuel} text-anchor='end' x={flmx(f)} y={flmy(f)}>{flmv(f)}</text>
+    </g>
   {/each}
-
   <rect  x={leg.x0} y={leg.y0} width={leg.w} height={leg.h} style={rectStyle}/>
   <text text-anchor='start' x={leg.x0+leg.p} y={leg.y0+20-leg.p}>Dead Load</text>
   <text text-anchor='start' x={leg.x0+leg.p} y={leg.y0+35-leg.p}>(t/ac)</text>
