@@ -1,16 +1,16 @@
 <script>
-  import { fireInput } from '../../models/store.js'
+  import {fireInput} from '../../models/Experimental/store.js'
 </script>
 
 <div class="card">
-  <h4 class="card-title">User Inputs
+  <h4 class="card-title">Input Using Store
     <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
-      data-bs-target="#userInputCollapse" aria-expanded="false" aria-controls="userInputCollapse">
+      data-bs-target="#inputStoreCollapse" aria-expanded="false" aria-controls="inputStoreCollapse">
       +/-
     </button>
   </h4>
-  <div class="collapse" id="userInputCollapse">
-    <div id='userInput' class="card-body">
+  <div class="collapse" id="inputStoreCollapse">
+    <div id='inputStore' class="card-body">
       <div class="table-responsive">
         <table class="table table-sm table-striped table-bordered border-primary">
           <thead>

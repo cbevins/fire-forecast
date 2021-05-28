@@ -1,16 +1,17 @@
 <script>
-  import { fireInput } from '../../models/store.js'
+  export let fireInput
 </script>
 
+<div>
 <div class="card">
-  <h4 class="card-title">User Inputs
+  <h4 class="card-title">Input Using Props
     <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
-      data-bs-target="#userInputCollapse" aria-expanded="false" aria-controls="userInputCollapse">
+      data-bs-target="#inputPropsCollapse" aria-expanded="false" aria-controls="inputPropsCollapse">
       +/-
     </button>
   </h4>
-  <div class="collapse" id="userInputCollapse">
-    <div id='userInput' class="card-body">
+  <div class="collapse" id="inputPropsCollapse">
+    <div id='inputProps' class="card-body">
       <div class="table-responsive">
         <table class="table table-sm table-striped table-bordered border-primary">
           <thead>
@@ -50,4 +51,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>
