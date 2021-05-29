@@ -15,22 +15,27 @@ export class EsaAbstract {
    * @param {integer} rad Default radius (number of resultion steps)
    *  Use double resolution (rad===2) to ensure adjacent cells have different elev sample pt
    */
-  constructor (deg = (1 / (60 * 60 * 3)), rad = 2) {
+  constructor (name, deg = (1 / (60 * 60 * 3)), rad = 2) {
+    this._name = name // Service API name
     this._deg = deg
     this._rad = rad
     this.load(0, 0, deg, rad, false)
     // Message may be 'OK', 'Loading', 'OK', or an error message
     this._msg = 'Uninitialized'
+    this._okText = 'OK' // success text
   }
 
   // Public accessors ----------------------------------------------------------
   aspect () { return this._aspect }
-  aspectDir () { return compassDir(this._aspect) }
+  aspectCompass () { return compassDir(this._aspect) }
   elevFt () { return 3.2808 * this._elev }
   elevM () { return this._elev }
+  lat () { return this._lat }
+  lon () { return this._lon }
   esa () { return [this.elevFt(), this.slopeRatio(), this.aspect()] }
+  name () { return this._name }
   message () { return this._msg }
-  ok () { return this._msg === 'OK' }
+  ok () { return this._msg === this._okText }
   slopeDegrees () { return this._slope }
   slopeRatio () { return Math.tan(this._slope * Math.PI / 180) }
 
@@ -69,10 +74,11 @@ export class EsaAbstract {
     if (doLoad) {
       // Attempt to load the 3x3 elevation grid
       this._msg = 'Loading'
-      this._msg = await this._loadGrid(this._grid).then()
+      const success = await this._loadGrid()
       // Calculate slope and aspect
-      if (this.ok()) {
-        const [elev, slopeDeg, aspect] = slopeAspect(this._grid, this._ew._m, this._ns._m)
+      if (success) {
+        const elevArray = this._grid.map(e => e.elev) // convert to a simple array of elevations
+        const [elev, slopeDeg, aspect] = slopeAspect(elevArray, this._ew._m, this._ns._m)
         this._elev = elev // m
         this._slope = slopeDeg // degrees
         this._aspect = aspect // degrees
@@ -97,8 +103,12 @@ export class EsaAbstract {
     })
   }
 
-  // Re-derived method that fills with elevation (m)
-  _loadGrid (elevGrid) {
+  /**
+   * MUST BE RE-IMPLEMENTED BY DERIVED CLASSES to fill the elevation grid
+   *
+   * @returns {bool} TRUE on success (this._msg==='OK') or FALSE on failure (this._msg === 'Error...')
+   */
+  async _loadGrid () {
     throw new Error('Esa.loadGrid() must be reimplemented by a derived class')
   }
 }
