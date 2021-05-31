@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
 import { ElevationServiceAbstract } from './ElevationServiceAbstract.js'
 
 export class ElevationServiceMapQuest extends ElevationServiceAbstract {
