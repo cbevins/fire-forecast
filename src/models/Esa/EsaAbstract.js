@@ -23,6 +23,8 @@ export class EsaAbstract {
     // Message may be 'OK', 'Loading', 'OK', or an error message
     this._msg = 'Uninitialized'
     this._okText = 'OK' // success text
+    this._status = 0
+    this._statusText = ''
   }
 
   // Public accessors ----------------------------------------------------------
