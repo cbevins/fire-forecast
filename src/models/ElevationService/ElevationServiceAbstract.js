@@ -8,7 +8,7 @@ import { compassDir, slopeAspect } from './slopeAspect.js'
  * if (esa.load(lat1, lon1).ok()
  * const elev2 = esa.setPoint(lat2, lon2).load().elev
  */
-export class EsaAbstract {
+export class ElevationServiceAbstract {
   /**
    * Creates an elevation-slope-aspect object for a terrain point.
    * @param {number} res Default sample resolution is 1/3 arc-second in decimal degrees

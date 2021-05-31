@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { EsaAbstract } from './EsaAbstract.js'
+import { ElevationServiceAbstract } from './ElevationServiceAbstract.js'
 
-export class EsaUsgs extends EsaAbstract {
+export class ElevationServiceUsgs extends ElevationServiceAbstract {
   constructor () {
-    super('USGS')
+    super('ElevationServiceUsgs')
     this._url = 'https://nationalmap.gov/epqs/pqs.php'
   }
 
@@ -23,8 +23,8 @@ export class EsaUsgs extends EsaAbstract {
 
       // Store results in the grid and return
       responses.forEach((res, idx) => {
-        this._status = response.status
-        this._statusText = response.statusText
+        this._status = res.status
+        this._statusText = res.statusText
         if (res.status < 200 || res.status >= 300) {
           this._msg = `Response status ${res.status}: ${res.statusText}`
           console.error(this._msg)

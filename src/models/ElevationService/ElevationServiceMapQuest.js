@@ -1,9 +1,9 @@
-// import fetch from 'node-fetch'
-import { EsaAbstract } from './EsaAbstract.js'
+import fetch from 'node-fetch'
+import { ElevationServiceAbstract } from './ElevationServiceAbstract.js'
 
-export class EsaMapQuest extends EsaAbstract {
+export class ElevationServiceMapQuest extends ElevationServiceAbstract {
   constructor () {
-    super('MapQuest')
+    super('ElevationServiceMapQuest')
     this._a = 'd7ghMP8O'
     this._b = 'tMz17Dub'
     this._c = 'WO3qsTPZ'

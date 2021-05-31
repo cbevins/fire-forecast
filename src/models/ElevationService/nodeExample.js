@@ -5,12 +5,12 @@
  * 2 - have a local package.json with "type": "modules"
  */
 
-import { EsaMapQuest } from './EsaMapQuest.js'
-import { EsaUsgs } from './EsaUsgs.js'
+import { ElevationServiceMapQuest } from './ElevationServiceMapQuest.js'
+import { ElevationServiceUsgs } from './ElevationServiceUsgs.js'
 
 const M = { name: 'The "M"', lat: 46.859340, lon: -113.975528 }
-const mapq = new EsaMapQuest()
-const usgs = new EsaUsgs()
+const mapq = new ElevationServiceMapQuest()
+const usgs = new ElevationServiceUsgs()
 
 function report (esa) {
   let name = `${esa.name()}`
