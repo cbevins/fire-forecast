@@ -119,7 +119,7 @@
   <defs>
     {#each [0,1,2,3,4,5] as series}
     <linearGradient id={`grad${series}`} x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" style={`stop-color:rgb(${colors[series]});stop-opacity:0.5`} />
+      <stop offset="0%" style={`stop-color:rgb(${colors[series]});stop-opacity:0.4`} />
       <stop offset="100%" style={`stop-color:rgb(${colors[series]});stop-opacity:1`} />
     </linearGradient>
     {/each}
@@ -144,15 +144,15 @@
   {/each}
   <rect  x={leg.x0} y={leg.y0} width={leg.w} height={leg.h} style={rectStyle}/>
   <text text-anchor='start' x={leg.x0+leg.p} y={leg.y0+20-leg.p}>Dead Load</text>
-  <text text-anchor='start' x={leg.x0+leg.p} y={leg.y0+35-leg.p}>(t/ac)</text>
+  <text text-anchor='start' x={leg.x0+leg.p} y={leg.y0+35-leg.p}>(ton/ac)</text>
   <text text-anchor='end' x={leg.x1-leg.p} y={leg.y0+20-leg.p}>Live Load</text>
-  <text text-anchor='end' x={leg.x1-leg.p} y={leg.y0+35-leg.p}>(t/ac)</text>
+  <text text-anchor='end' x={leg.x1-leg.p} y={leg.y0+35-leg.p}>(ton/ac)</text>
   <text text-anchor='middle' x={leg.xm} y={leg.ym-40-leg.p}>Depth</text>
   <text text-anchor='middle' x={leg.xm} y={leg.ym-25-leg.p}>(ft)</text>
   <text text-anchor="middle" x={leg.xm} y={leg.ym+20} class="legend">FM#</text>
   <text text-anchor='middle' x={leg.xm} y={leg.ym+40}>HPUA</text>
   <text text-anchor='middle' x={leg.xm} y={leg.ym+55}>(Btu/ft2)</text>
-  <text text-anchor='start' x={leg.x0+leg.p} y={leg.y1-20-leg.p}>  RoS</text>
+  <text text-anchor='start' x={leg.x0+leg.p} y={leg.y1-20-leg.p}>Spread</text>
   <text text-anchor='end' x={leg.x1-leg.p} y={leg.y1-20-leg.p}>Flame</text>
   <text text-anchor='start' x={leg.x0+leg.p} y={leg.y1-5-leg.p}>(ft/min)</text>
   <text text-anchor='end' x={leg.x1-leg.p} y={leg.y1-5-leg.p}>(ft)</text>
