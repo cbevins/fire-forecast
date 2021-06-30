@@ -1,3 +1,5 @@
+import { ForecastTomorrow } from "./Forecast/ForecastTomorrow"
+
 export const FuelModelKey = [{
   label: '1',
   type: 'series',
@@ -477,3 +479,109 @@ export const ShortKey = {
     SlashBlowdown
   ]
 }
+
+export const Crosswalk1 = {
+  'gr1': [1],
+  'gr2': [1,2],
+  'gr3': [3],
+  'gr4': [1,2],
+  'gr5': [3],
+  'gr6': [3],
+  'gr7': [1,2,3],
+  'gr8': [3],
+  'gr9': [3],
+  'gs1': [2,],
+  'gs2': [2,5],
+  'gs3': [],
+  'gs4': [],
+  'sh1': [5,6],
+  'sh2': [5,6,10],
+  'sh3': [7],
+  'sh4': [6,7],
+  'sh5': [4,5],
+  'sh6': [6,7],
+  'sh7': [4,5],
+  'sh8': [7],
+  'sh9': [7],
+  'tu1': [8,10],
+  'tu2': [10],
+  'tu3': [10],
+  'tu4': [10],
+  'tu5': [5,10],
+  't11': [8],
+  't12': [9],
+  't13': [8],
+  't14': [8],
+  't15': [8,11],
+  't16': [9],
+  't17': [8],
+  't18': [9],
+  't19': [9],
+  'sb1': [11,12],
+  'sb2': [11,12,13],
+  'sb3': [12,13],
+  'sb4': [13]
+}
+
+const Q1 = {
+  k: 'top', l: '',
+  q: 'Main fire-carrying layer is:',
+  a: [
+    { k: 'gr', l: 'Grass',
+      q: 'The clime and dead extinction moisture are',
+      a:[
+      { k: 'arid', l: 'arid to semi-arid, 15%', q: '', a: [
+        { k: 'patchy', l: 'Grass is short, patchy, and possibly heavily grazed',
+          q: '', a: [], f: 'gs1'},
+        { k: 'continuous', l: 'Moderately coarse continuous grass,',
+          q: 'Average depth is about', a: [
+            { k: '1ft', l: '1 foot', q: '', a: [], f: 'gr2'}
+            { k: '2ft', l: '2 feet', q: '', a: [], f: 'gr4'}
+            { k: '3ft', l: '3 feet', q: '', a: [], f: 'gr7'}
+          ]},
+      ]},
+
+      {k: 'humid', l: 'subhumid to humid, 30-40%', q: '', a: []}
+     ]},
+    {k: 'gs', l: 'Grass-Shrub',
+      q: '', a[]
+    },
+    {k: 'sh', l: 'Shrub', q: '', a:[]},
+    {k: 'tu', l: 'Timber-Understory', q: '', a:[]},
+    {k: 'tl', l: 'Timber-Litter', q: '', a:[]},
+    {k: 'sb', l: 'Slash-Blowdown', q: '', a:[]},
+  }
+}
+
+/*
+- q: The predominant fire-carrying layer is:
+  a: Nearly pure grass and/or forb type
+    q: The climate and dead extinction moisture is:
+      a: Arid to semi-arid, 15%
+        q: The grass fuels are:
+          a: Short, patchy, possibly heavily grazed
+            f: GR1
+          a: Moderately coarse and continuous
+            q: The average depth is:
+              a: 1 foot
+                f: GR2
+              a: 2 feet
+                f: GR4
+              a: 3 feet
+                f: GR7
+      a: Subhumid to humid, 30-40%
+        q: The grass fuels are
+          a: Short, patchy, possibly heavily grazed
+            f: GR1
+          a: Very coarse grass, average depth about 2 feet
+            f: GR3
+          a: Dense, coarse grass, average depth about 1 to 2 feet
+            f: GR5
+          a: Dryland grass about 1 to 2 feet tall.
+            f: GR6
+          a: Heavy, coarse, continuous grass 3 to 5 feet tall.
+            f: GR8
+          a: Very heavy, coarse, continuous grass 5 to 8 feet tall.
+            f: GR9
+  a: Mixture of grass and shrub, up to about 50 percent shrub coverage
+*/
